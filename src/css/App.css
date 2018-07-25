@@ -8,16 +8,28 @@
 
 .heading-logo {
   grid-area: heading-logo;
+  border: solid;
+  border-color: #000000;
+  border-width: 0.1em;
 }
 
 .heading-nav-bar {
   grid-area: heading-nav-bar;
+  border: solid;
+  border-color: #000000;
+  border-width: 0.1em;
 }
 
 .side-bar {
   grid-area: side-bar;
+  border: solid;
+  border-color: #000000;
+  border-width: 0.1em;
 }
 
 .main-window {
   grid-area: main-window;
+  border: solid;
+  border-color: #000000;
+  border-width: 0.1em;
 }
