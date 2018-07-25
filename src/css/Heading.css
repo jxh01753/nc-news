@@ -8,3 +8,10 @@
 .heading-logo {
   background-color: #fe4042;
 }
+
+.heading-flex {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  margin: 0em 1em;
+}

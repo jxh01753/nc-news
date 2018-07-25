@@ -3,24 +3,44 @@ import Axios from '../../node_modules/axios';
 import moment from 'moment';
 import '../css/Articles.css';
 
+/* There is an issue with comment count not loading when accessing the specific paths, look into this */
+
 class Articles extends Component {
   state = {
     data: {}
   };
 
   componentDidMount = async () => {
-    let data = await this.getArticleData();
+    console.log(this.props);
+    let data = await this.getArticleData(this.props.match.path);
     this.setState({
       data: data
     });
     console.log('Component Mounted!');
-    console.log(this.state.data);
+  };
+
+  componentDidUpdate = async (prevProps) => {
+    if (prevProps.match.path !== this.props.match.path)
+      this.getArticleData(this.props.match.path);
   };
 
   // The parameter for this should be the active topic, but for now as a placeholder just get any articles
-  getArticleData = async () => {
+
+  // Make sure to refactor this because it's going to look ugly.
+
+  getArticleData = async (path) => {
+    const coding = '/topics/5b4254e3e3de0311254b94b4/articles';
+    const cooking = '/topics/5b4254e3e3de0311254b94b6/articles';
+    const football = '/topics/5b4254e3e3de0311254b94b5/articles';
+    let url = '';
+
+    if (path === '/') url = '/articles';
+    if (path === '/coding') url = coding;
+    if (path === '/cooking') url = cooking;
+    if (path === '/football') url = football;
+
     const { data } = await Axios.get(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles`
+      `https://jxh01753-nc-news.herokuapp.com/api${url}`
     );
     return data;
   };
@@ -39,6 +59,7 @@ class Articles extends Component {
                 <p className="article-date">
                   {moment(article.created_at).format('Do MMMM YYYY HH:mm')}
                 </p>
+                <p className="comment-count">Comments: {article.comments}</p>
               </div>
             </div>
           ))}

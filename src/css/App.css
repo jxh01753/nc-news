@@ -1,6 +1,5 @@
 .grid-container {
   display: grid;
-  height: 100%;
   grid-template-columns: 1fr 1fr 0.5fr 0.5fr;
   grid-template-rows: 0.5fr 1fr 1fr;
   grid-template-areas: 'heading-logo heading-nav-bar heading-nav-bar heading-nav-bar' 'main-window main-window side-bar side-bar' 'main-window main-window side-bar side-bar';
@@ -8,28 +7,38 @@
 
 .heading-logo {
   grid-area: heading-logo;
-  border: solid;
+  border-bottom: solid;
   border-color: #000000;
-  border-width: 0.1em;
+  border-width: 0.2em;
+  height: 20vh;
 }
 
 .heading-nav-bar {
   grid-area: heading-nav-bar;
-  border: solid;
+  border-bottom: solid;
   border-color: #000000;
-  border-width: 0.1em;
+  border-width: 0.2em;
+  height: 20vh;
 }
 
 .side-bar {
   grid-area: side-bar;
-  border: solid;
+  border-top: solid;
+  border-right: solid;
   border-color: #000000;
-  border-width: 0.1em;
+  border-width: 0.2em;
+  height: 70%;
+  overflow: scroll;
+  height: 80vh;
 }
 
 .main-window {
   grid-area: main-window;
-  border: solid;
+  border-top: solid;
+  border-right: solid;
   border-color: #000000;
-  border-width: 0.1em;
+  border-width: 0.2em;
+  height: 70%;
+  overflow: scroll;
+  height: 80vh;
 }

@@ -1,0 +1,27 @@
+.heading-nav-bar {
+  background-color: #fe4042;
+}
+
+.nav-items {
+  font-family: Helvetica, Arial, sans-serif;
+  font-weight: bold;
+  color: #ffffff;
+  margin: 1em 1em;
+}
+
+.nav-bar-content-flex {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.linker:link,
+.linker:visited,
+.linker:active {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.linker:hover {
+  text-decoration: none;
+  color: #000000;
+}
