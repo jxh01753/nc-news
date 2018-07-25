@@ -1,0 +1,23 @@
+.grid-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 0.5fr 0.5fr;
+  grid-template-rows: 0.5fr 1fr 1fr;
+  grid-template-areas: 'heading-logo heading-nav-bar heading-nav-bar heading-nav-bar' 'main-window main-window side-bar side-bar' 'main-window main-window side-bar side-bar';
+}
+
+.heading-logo {
+  grid-area: heading-logo;
+}
+
+.heading-nav-bar {
+  grid-area: heading-nav-bar;
+}
+
+.side-bar {
+  grid-area: side-bar;
+}
+
+.main-window {
+  grid-area: main-window;
+}
