@@ -48,10 +48,7 @@ class Articles extends Component {
           {articles.map((article) => (
             <div className="article-card">
               <div className="article-content" key={article._id}>
-                <Link
-                  className="article-link"
-                  to={`/topic/${article.belongs_to}/articles/${article._id}`}
-                >
+                <Link className="article-link" to={`/articles/${article._id}/`}>
                   <p className="article-title">{article.title}</p>
                 </Link>
                 <p className="article-author">
@@ -62,7 +59,7 @@ class Articles extends Component {
                 </p>
                 <Link
                   className="comments-link"
-                  to={`/topic/${article.belongs_to}/articles/${article._id}`}
+                  to={`/articles/${article._id}/`}
                 >
                   <p className="comment-count">Comments: {article.comments}</p>
                 </Link>
