@@ -1,0 +1,22 @@
+.thread-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 'post-content-area post-content-area' 'comment-content-area comment-content-area' 'comment-content-area comment-content-area';
+}
+
+.post-content-area {
+  grid-area: post-content-area;
+  border-bottom: solid;
+  border-color: #000000;
+  border-width: 0.1em;
+}
+
+.comment-content-area {
+  grid-area: comment-content-area;
+  border-top: solid;
+  border-color: #000000;
+  border-width: 0.1em;
+  overflow: scroll;
+}
