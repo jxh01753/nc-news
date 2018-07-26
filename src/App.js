@@ -16,9 +16,7 @@ class App extends Component {
           <Nav />
           <div className="side-bar" />
           <Route exact path="/" component={Articles} />
-          <Route exact path="/coding" component={Articles} />
-          <Route exact path="/cooking" component={Articles} />
-          <Route exact path="/football" component={Articles} />
+          <Route exact path="/topics/:topic_id/" component={Articles} />
         </div>
       </Router>
     );

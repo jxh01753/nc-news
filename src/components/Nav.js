@@ -8,15 +8,15 @@ const Nav = () => {
       <div className="nav-bar-content-flex">
         <nav className="topics-nav-breadcrumb">
           <h1 className="nav-items">
-            <Link className="linker" to="/coding">
+            <Link className="linker" to="/topics/5b4254e3e3de0311254b94b4">
               Coding
             </Link>{' '}
             /{' '}
-            <Link className="linker" to="/cooking">
+            <Link className="linker" to="/topics/5b4254e3e3de0311254b94b6">
               Cooking
             </Link>{' '}
             /{' '}
-            <Link className="linker" to="/football">
+            <Link className="linker" to="/topics/5b4254e3e3de0311254b94b5">
               Football
             </Link>
           </h1>
