@@ -15,3 +15,15 @@
   justify-content: flex-start;
   margin: 0em 1em;
 }
+
+.return-home:link,
+.return-home:visited,
+.return-home:active {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.return-home:hover {
+  text-decoration: none;
+  color: #000000;
+}

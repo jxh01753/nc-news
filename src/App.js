@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Heading from './components/Heading';
 import Articles from './components/Articles';
+import Thread from './components/Articles';
 import Nav from './components/Nav';
 import './css/normalize.css';
 import './css/App.css';

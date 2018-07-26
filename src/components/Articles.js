@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Axios from '../../node_modules/axios';
 import moment from 'moment';
 import '../css/Articles.css';
@@ -11,11 +12,11 @@ class Articles extends Component {
   };
 
   componentDidMount = async () => {
-    console.log(this.props);
     let data = await this.getArticleData(this.props.match.path);
     this.setState({
       data: data
     });
+    console.log(this.state.data);
     console.log('Component Mounted!');
   };
 
@@ -52,14 +53,24 @@ class Articles extends Component {
           {articles.map((article) => (
             <div className="article-card">
               <div className="article-content">
-                <p className="article-title">{article.title}</p>
+                <Link
+                  className="article-link"
+                  to={`/topic/${article.belongs_to}/articles/${article._id}`}
+                >
+                  <p className="article-title">{article.title}</p>
+                </Link>
                 <p className="article-author">
                   Created by user: {article.created_by.username} on
                 </p>
                 <p className="article-date">
                   {moment(article.created_at).format('Do MMMM YYYY HH:mm')}
                 </p>
-                <p className="comment-count">Comments: {article.comments}</p>
+                <Link
+                  className="comments-link"
+                  to={`/topic/${article.belongs_to}/articles/${article._id}`}
+                >
+                  <p className="comment-count">Comments: {article.comments}</p>
+                </Link>
               </div>
             </div>
           ))}
