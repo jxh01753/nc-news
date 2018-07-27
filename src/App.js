@@ -5,6 +5,7 @@ import Articles from './components/Articles';
 import Thread from './components/Thread';
 import Nav from './components/Nav';
 import Login from './components/Login';
+import UserProfile from './components/UserProfile';
 import NewComment from './components/NewComment';
 import './css/normalize.css';
 import './css/App.css';
@@ -13,7 +14,7 @@ import Axios from '../node_modules/axios';
 class App extends Component {
   state = {
     newCommentView: false,
-    activeUser: ''
+    activeUser: {}
   };
 
   newCommentViewChange = () => {
@@ -29,10 +30,16 @@ class App extends Component {
     );
     if (userCheck.status === 200) {
       this.setState({
-        activeUser: userCheck.data.user.username
+        activeUser: userCheck.data.user
       });
     }
-    console.log(this.state.activeUser);
+  };
+
+  handleLogout = (event) => {
+    console.log('Hit the logout function');
+    this.setState({
+      activeUser: {}
+    });
   };
 
   render() {
@@ -54,8 +61,11 @@ class App extends Component {
             )}
           />
           {/* This looks quirky but it seems to work */}
-          {this.state.newCommentView ? (
-            <NewComment activeUser={this.state.activeUser} />
+          {this.state.activeUser.username ? (
+            <UserProfile
+              activeUser={this.state.activeUser}
+              handleLogout={this.handleLogout}
+            />
           ) : (
             <Login handleLogin={this.handleLogin} />
           )}
