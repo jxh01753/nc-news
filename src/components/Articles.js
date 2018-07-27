@@ -41,6 +41,13 @@ class Articles extends Component {
     return data;
   };
 
+  handleVote = async (articleID, vote) => {
+    const voteRequest = await Axios.put(
+      `https://jxh01753-nc-news.herokuapp.com/api/articles/${articleID}?vote=${vote}`
+    );
+    console.log(voteRequest);
+  };
+
   displayArticles = (articles) => {
     return (
       <div className="main-window">
@@ -63,6 +70,23 @@ class Articles extends Component {
                 >
                   <p className="comment-count">Comments: {article.comments}</p>
                 </Link>
+                <div className="vote-info">
+                  <p>Votes: {article.votes} </p>
+                  <button
+                    className="article-upvote"
+                    onClick={() => {
+                      this.handleVote(article._id, 'up');
+                    }}
+                  >
+                    Upvote!
+                  </button>
+                  <button
+                    className="article-downvote"
+                    onClick={() => this.handleVote(article._id, 'down')}
+                  >
+                    Downvote!
+                  </button>
+                </div>
               </div>
             </div>
           ))}

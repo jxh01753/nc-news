@@ -43,6 +43,15 @@ class Thread extends Component {
     return data;
   };
 
+  // this one and the article vote one could be consolidated into one function somewhere.
+
+  handleVote = async (commentID, vote) => {
+    const voteRequest = await Axios.put(
+      `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}?vote=${vote}`
+    );
+    console.log(voteRequest);
+  };
+
   displayContent = () => {
     return (
       <div className="main-window">
@@ -92,6 +101,8 @@ class Thread extends Component {
                   <div className="comment-info">
                     Posted by {comment.created_by.username} on{' '}
                     {moment(comment.created_at).format('Do MMMM YYYY HH:mm')}
+                    <button className="comment-upvote">Upvote!</button>
+                    <button className="comment-downvote">Downvote!</button>
                   </div>
                 </div>
               );
