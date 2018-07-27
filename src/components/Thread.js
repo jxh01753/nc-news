@@ -49,7 +49,6 @@ class Thread extends Component {
     const voteRequest = await Axios.put(
       `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}?vote=${vote}`
     );
-    console.log(voteRequest);
   };
 
   displayContent = () => {
@@ -100,9 +99,24 @@ class Thread extends Component {
                   <p className="comment-body">{comment.body}</p>
                   <div className="comment-info">
                     Posted by {comment.created_by.username} on{' '}
-                    {moment(comment.created_at).format('Do MMMM YYYY HH:mm')}
-                    <button className="comment-upvote">Upvote!</button>
-                    <button className="comment-downvote">Downvote!</button>
+                    {moment(comment.created_at).format('Do MMMM YYYY HH:mm')}{' '}
+                    <p>Votes: {comment.votes} </p>
+                    <button
+                      className="comment-upvote"
+                      onClick={() => {
+                        this.handleVote(comment._id, 'up');
+                      }}
+                    >
+                      Upvote!
+                    </button>
+                    <button
+                      className="comment-downvote"
+                      onClick={() => {
+                        this.handleVote(comment._id, 'down');
+                      }}
+                    >
+                      Downvote!
+                    </button>
                   </div>
                 </div>
               );
