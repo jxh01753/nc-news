@@ -46,8 +46,8 @@ class Thread extends Component {
   displayContent = () => {
     return (
       <div className="main-window">
-        <div class="thread-container">
-          <div class="post-content-area">
+        <div className="thread-container">
+          <div className="post-content-area">
             <div className="post-title">
               {this.state.postContent.article.title}
             </div>
@@ -68,14 +68,18 @@ class Thread extends Component {
               <br />
             </div>
           </div>
-          <div class="comment-content-area">
-            <div class="comments-control-area">
+          <div className="comment-content-area">
+            <div className="comments-control-area">
               <h2 className="comments-area-title">Comments</h2>
               <div className="btn-area">
                 <button
                   className="btn-submit-new-comment"
                   type="submit"
-                  onClick={this.props.newCommentViewChange}
+                  onClick={() =>
+                    this.props.newCommentViewChange(
+                      this.props.match.params.article_id
+                    )
+                  }
                 >
                   New Comment
                 </button>

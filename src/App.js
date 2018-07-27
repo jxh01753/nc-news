@@ -14,14 +14,27 @@ import Axios from '../node_modules/axios';
 class App extends Component {
   state = {
     newCommentView: false,
-    activeUser: {}
+    activeUser: {
+      _id: '5b4254e3e3de0311254b94bc',
+      username: 'jessjelly',
+      name: 'Jess Jelly',
+      avatar_url: 'none'
+    },
+    activeArticleID: ''
   };
 
-  newCommentViewChange = () => {
+  /*
+  state = {
+    newCommentView: false,
+    activeUser: {}
+  }
+  */
+
+  newCommentViewChange = (articleInfo) => {
     this.setState({
-      newCommentView: true
+      newCommentView: true,
+      activeArticleID: articleInfo
     });
-    console.log('Time to change view!');
   };
 
   handleLogin = async (username, password) => {
@@ -62,9 +75,13 @@ class App extends Component {
           />
           {/* This looks quirky but it seems to work */}
           {this.state.activeUser.username ? (
-            <UserProfile
+            // <UserProfile
+            //   activeUser={this.state.activeUser}
+            //   handleLogout={this.handleLogout}
+            // />
+            <NewComment
               activeUser={this.state.activeUser}
-              handleLogout={this.handleLogout}
+              activeArticleID={this.state.activeArticleID}
             />
           ) : (
             <Login handleLogin={this.handleLogin} />
@@ -74,5 +91,7 @@ class App extends Component {
     );
   }
 }
+
+// NewComment needs the active user from state to determine who the authour of the post is. Articles and Posts will also need the active user to determine what user is allowed to delete.
 
 export default App;
