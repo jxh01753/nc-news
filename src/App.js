@@ -4,10 +4,37 @@ import Heading from './components/Heading';
 import Articles from './components/Articles';
 import Thread from './components/Thread';
 import Nav from './components/Nav';
+import Login from './components/Login';
+import NewComment from './components/NewComment';
 import './css/normalize.css';
 import './css/App.css';
+import Axios from '../node_modules/axios';
 
 class App extends Component {
+  state = {
+    newCommentView: false,
+    activeUser: ''
+  };
+
+  newCommentViewChange = () => {
+    this.setState({
+      newCommentView: true
+    });
+    console.log('Time to change view!');
+  };
+
+  handleLogin = async (username, password) => {
+    const userCheck = await Axios.get(
+      `https://jxh01753-nc-news.herokuapp.com/api/users/${username}`
+    );
+    if (userCheck.status === 200) {
+      this.setState({
+        activeUser: userCheck.data.user.username
+      });
+    }
+    console.log(this.state.activeUser);
+  };
+
   render() {
     return (
       <Router>
@@ -17,7 +44,21 @@ class App extends Component {
           <div className="side-bar" />
           <Route exact path="/" component={Articles} />
           <Route path="/topics/:topic_id/" component={Articles} />
-          <Route path="/articles/:article_id/" component={Thread} />
+          <Route
+            path="/articles/:article_id/"
+            render={(props) => (
+              <Thread
+                {...props}
+                newCommentViewChange={this.newCommentViewChange}
+              />
+            )}
+          />
+          {/* This looks quirky but it seems to work */}
+          {this.state.newCommentView ? (
+            <NewComment activeUser={this.state.activeUser} />
+          ) : (
+            <Login handleLogin={this.handleLogin} />
+          )}
         </div>
       </Router>
     );

@@ -25,8 +25,6 @@ class Thread extends Component {
       postContent,
       commentContent
     });
-    console.log(this.state.postContent);
-    console.log(this.state.commentContent);
   };
 
   getPostData = async () => {
@@ -50,20 +48,49 @@ class Thread extends Component {
       <div className="main-window">
         <div class="thread-container">
           <div class="post-content-area">
-            {this.state.postContent.article.title}
+            <div className="post-title">
+              {this.state.postContent.article.title}
+            </div>
             <br />
-            <br />
-            {this.state.postContent.article.body}
-            <br />
-            <br />
-            {this.state.postContent.article.created_at}
-            <br />
-            <br />
-            {this.state.postContent.article.created_by.username}
+            <div className="post-body">
+              {this.state.postContent.article.body}
+            </div>
+            <div className="post-info">
+              <div className="post-author">
+                Posted by {this.state.postContent.article.created_by.username}
+              </div>
+              <div className="post-date">
+                on{' '}
+                {moment(this.state.postContent.article.created_at).format(
+                  'Do MMMM YYYY HH:mm'
+                )}
+              </div>
+              <br />
+            </div>
           </div>
           <div class="comment-content-area">
+            <div class="comments-control-area">
+              <h2 className="comments-area-title">Comments</h2>
+              <div className="btn-area">
+                <button
+                  className="btn-submit-new-comment"
+                  type="submit"
+                  onClick={this.props.newCommentViewChange}
+                >
+                  New Comment
+                </button>
+              </div>
+            </div>
             {this.state.commentContent.comments.map((comment) => {
-              return <p>{comment.body}</p>;
+              return (
+                <div className="comment-box">
+                  <p className="comment-body">{comment.body}</p>
+                  <div className="comment-info">
+                    Posted by {comment.created_by.username} on{' '}
+                    {moment(comment.created_at).format('Do MMMM YYYY HH:mm')}
+                  </div>
+                </div>
+              );
             })}
           </div>
         </div>
@@ -74,9 +101,9 @@ class Thread extends Component {
   displayLoading = () => {
     return (
       <div className="main-window">
-        <div class="thread-container">
-          <div class="post-content-area">Loading post!</div>
-          <div class="comment-content-area">Loading comments!</div>
+        <div className="thread-container">
+          <div className="post-content-area">Loading post!</div>
+          <div className="comment-content-area">Loading comments!</div>
         </div>
       </div>
     );
@@ -86,7 +113,7 @@ class Thread extends Component {
     return !this.state.postContent.article &&
       !this.state.commentContent.comments
       ? this.displayLoading()
-      : this.displayContent(this.state.postContent, this.state.commentContent);
+      : this.displayContent();
   }
 }
 
