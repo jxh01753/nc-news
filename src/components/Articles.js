@@ -68,7 +68,8 @@ class Articles extends Component {
                   </span>{' '}
                   on{' '}
                   <span className="article-list-date">
-                    {moment(article.created_at).format('Do MMMM YYYY HH:mm')}
+                    {moment(article.created_at).format('Do MMMM YYYY HH:mm')}{' '}
+                    UTC
                   </span>{' '}
                   | <span className="article-list-comments">Comments: 12</span>{' '}
                   | <span className="article-list-votes">Votes: 12</span> |{' '}
