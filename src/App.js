@@ -6,7 +6,7 @@ import './css/normalize.css';
 
 // import Heading from './components/Heading';
 // import Articles from './components/Articles';
-// import Thread from './components/Thread';
+import Thread from './components/Thread';
 import Nav from './components/Nav';
 // import Login from './components/Login';
 // import UserProfile from './components/UserProfile';
@@ -25,6 +25,7 @@ class App extends Component {
           <Nav />
           <Route exact path="/" component={Articles} />
           <Route path="/topics/:topic_id/" component={Articles} />
+          <Route path="/articles/:article_id/" component={Thread} />
         </div>
       </Router>
     );

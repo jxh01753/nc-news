@@ -39,6 +39,13 @@ class Articles extends Component {
     return data;
   };
 
+  handleVote = async (articleID, vote) => {
+    const voteRequest = await Axios.put(
+      `https://jxh01753-nc-news.herokuapp.com/api/articles/${articleID}?vote=${vote}`
+    );
+    console.log(voteRequest);
+  };
+
   displayLoading = () => {
     return (
       <div className="main-content-area">
@@ -61,7 +68,7 @@ class Articles extends Component {
                 </Link>
               </div>
               <div className="article-list-info">
-                <p class="article-list-username al-text">
+                <p class="al-info-text">
                   Posted by{' '}
                   <span className="article-list-username">
                     {article.created_by.username}
@@ -71,10 +78,37 @@ class Articles extends Component {
                     {moment(article.created_at).format('Do MMMM YYYY HH:mm')}{' '}
                     UTC
                   </span>{' '}
-                  | <span className="article-list-comments">Comments: 12</span>{' '}
-                  | <span className="article-list-votes">Votes: 12</span> |{' '}
-                  <span className="article-list-upvote">Upvote</span> /{' '}
-                  <span className="article-list-downvote">Downvote</span>
+                  |{' '}
+                  <Link
+                    className="comment-link"
+                    to={`/articles/${article._id}`}
+                  >
+                    <span className="article-list-comments">
+                      Comments: {article.comments}
+                    </span>
+                  </Link>{' '}
+                  |{' '}
+                  <span className="article-list-votes">
+                    Votes: {article.votes}
+                  </span>{' '}
+                  |{' '}
+                  <span
+                    className="article-list-upvote al-selector"
+                    onClick={() => {
+                      this.handleVote(article._id, 'up');
+                    }}
+                  >
+                    Upvote
+                  </span>{' '}
+                  /{' '}
+                  <span
+                    className="article-list-downvote al-selector"
+                    onClick={() => {
+                      this.handleVote(article._id, 'down');
+                    }}
+                  >
+                    Downvote
+                  </span>
                 </p>
               </div>
             </li>
