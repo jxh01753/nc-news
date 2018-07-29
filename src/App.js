@@ -16,6 +16,16 @@ import Nav from './components/Nav';
 // import Axios from '../node_modules/axios';
 
 class App extends Component {
+  state = {
+    activeUser: {
+      _id: '5b4254e3e3de0311254b94bc',
+      username: 'jessjelly',
+      name: 'Jess Jelly',
+      avatar_url: 'none'
+    },
+    activeArticleID: ''
+  };
+
   render() {
     return (
       <Router>

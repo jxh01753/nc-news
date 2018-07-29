@@ -1,0 +1,41 @@
+.thread-article-title {
+  font-weight: bold;
+  margin-left: 2.4em;
+}
+
+.thread-content {
+  margin-left: 2.4em;
+}
+
+.thread-info {
+  margin-left: 2.4em;
+  color: #888;
+}
+
+.ti {
+  font-size: 0.8em;
+}
+
+.comment-box {
+  margin-left: 2.4em;
+}
+
+.comment-input {
+  width: 99%;
+  height: 10em;
+}
+
+.thread-comments {
+  margin-left: 2.4em;
+}
+
+.comment-info {
+  font-size: 0.8em;
+  margin-top: -0.5em;
+  color: #888;
+}
+
+.comment-upvote,
+.comment-downvote {
+  cursor: pointer;
+}

@@ -8,28 +8,34 @@
 
 .left-margin {
   grid-area: left-margin;
-  border-right: solid;
-  border-color: black;
+  /* border-right: solid;
+  border-color: black; */
   height: 100vh;
 }
 
 .right-margin {
   grid-area: right-margin;
-  border-left: solid;
-  border-color: black;
+  /* border-left: solid;
+  border-color: black; */
   height: 100vh;
 }
 
 .main-heading-nav {
   grid-area: main-heading-nav;
   border-bottom: solid;
+  /* border-left: solid;
+  border-right: solid; */
   border-color: black;
+  border-width: 0.1em;
   height: 5vh;
 }
 
 .main-content-area {
   grid-area: main-content-area;
   height: 90vh;
+  border-bottom: solid;
+  border-color: black;
+  border-width: 0.1em;
   overflow: scroll;
 }
 
