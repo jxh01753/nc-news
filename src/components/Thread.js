@@ -1,81 +1,68 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import '../css/thread.css';
-import Axios from 'axios';
+import * as api from '../api';
 import moment from 'moment';
 
 class Thread extends Component {
   state = {
     postContent: {},
     commentContent: {},
-    commentText: ''
+    commentText: '',
+    hasError: false
   };
 
   componentDidMount = async () => {
-    let postContent = await this.getPostData();
-    let commentContent = await this.getCommentData();
-    console.log(commentContent);
-    this.props.fetchActiveArticleID(this.props.match.params.article_id);
-    this.setState({
-      postContent,
-      commentContent
-    });
+    try {
+      let postContent = await this.getPostData();
+      let commentContent = await this.getCommentData();
+      this.props.fetchActiveArticleID(this.props.match.params.article_id);
+      this.setState({
+        postContent,
+        commentContent
+      });
+    } catch (e) {
+      this.setState({
+        hasError: true
+      });
+    }
   };
 
-  getPostData = async () => {
-    const article_id = this.props.match.params.article_id;
-    const { data } = await Axios.get(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}`
-    );
-    return data;
+  componentDidCatch = () => {
+    this.setState({ hasError: true });
   };
 
-  getCommentData = async () => {
-    const article_id = this.props.match.params.article_id;
-    const { data } = await Axios.get(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}/comments`
-    );
-
-    return data;
+  getPostData = () => {
+    return api.fetchPostData(this.props.match.params.article_id);
   };
 
-  handleCommentVote = async (commentID, vote) => {
-    const voteRequest = await Axios.put(
-      `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}?vote=${vote}`
-    );
+  getCommentData = () => {
+    return api.fetchCommentData(this.props.match.params.article_id);
   };
 
-  handleArticleVote = async (articleID, vote) => {
-    const voteRequest = await Axios.put(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${articleID}?vote=${vote}`
-    );
+  handleVote = (type, id, vote) => {
+    return api.changeVote(type, id, vote);
   };
 
-  handleCommentText = (event) => {
-    this.setState({
-      commentText: event.target.value
-    });
+  handleDeleteComment = (comment_id) => {
+    return api.deleteComment(comment_id);
   };
 
-  handleDeleteComment = async (commentID) => {
-    const deletePost = await Axios.delete(
-      `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}`
-    );
-  };
-
-  handleSubmitComment = async (event) => {
+  handleSubmitComment = (event) => {
     event.preventDefault();
     let data = {
       body: this.state.commentText,
       created_by: this.props.activeUser._id
     };
-    const response = await Axios.post(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${
-        this.props.match.params.article_id
-      }/comments`,
-      data
-    );
     this.setState({
       commentText: ''
+    });
+    return api.submitComment(data, this.props.match.params.article_id);
+  };
+
+  handleCommentText = (event) => {
+    this.setState({
+      commentText: event.target.value
     });
   };
 
@@ -109,8 +96,32 @@ class Thread extends Component {
                   {' '}
                   Votes: {this.state.postContent.article.votes}
                 </span>{' '}
-                | <span className="thread-info-upvote">Upvote</span> /{' '}
-                <span className="thread-info-downvote">Downvote</span>
+                |{' '}
+                <span
+                  className="thread-info-upvote"
+                  onClick={() =>
+                    this.handleVote(
+                      'articles',
+                      this.state.postContent.article._id,
+                      'up'
+                    )
+                  }
+                >
+                  Upvote
+                </span>{' '}
+                /{' '}
+                <span
+                  className="thread-info-downvote"
+                  onClick={() =>
+                    this.handleVote(
+                      'articles',
+                      this.state.postContent.article._id,
+                      'down'
+                    )
+                  }
+                >
+                  Downvote
+                </span>
               </p>
             </div>
             <div className="comment-area">
@@ -152,7 +163,7 @@ class Thread extends Component {
                         <span
                           className="comment-upvote"
                           onClick={() =>
-                            this.handleCommentVote(comment._id, 'up')
+                            this.handleVote('comments', comment._id, 'up')
                           }
                         >
                           Upvote
@@ -161,7 +172,7 @@ class Thread extends Component {
                         <span
                           className="comment-downvote"
                           onClick={() =>
-                            this.handleCommentVote(comment._id, 'down')
+                            this.handleVote('comments', comment._id, 'down')
                           }
                         >
                           Downvote
@@ -203,11 +214,25 @@ class Thread extends Component {
   };
 
   render() {
-    return !this.state.postContent.article &&
-      !this.state.commentContent.comments
-      ? this.displayLoading()
-      : this.displayContent();
+    return this.state.hasError ? (
+      <Redirect to="/error" />
+    ) : !this.state.commentContent.comments &&
+    !this.state.commentContent.comments ? (
+      this.displayLoading()
+    ) : (
+      this.displayContent()
+    );
   }
 }
+
+// if (this.state.hasError) {
+//   return <Redirect to= "/error"/>
+// } else {
+//   if (!this.state.commentContent.comments) {
+//     return this.displayLoading()
+//   } else {
+//     return this.displayContent();
+//   }
+// }
 
 export default Thread;

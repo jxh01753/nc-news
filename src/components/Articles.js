@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import * as api from '../api';
 import Axios from 'axios';
 import moment from 'moment';
 import '../css/articles.css';
 
 class Articles extends Component {
   state = {
-    data: {}
+    data: {},
+    hasError: false
   };
 
   componentDidMount = async () => {
@@ -26,6 +28,10 @@ class Articles extends Component {
     }
   };
 
+  componentDidCatch() {
+    this.setState({ hasError: true });
+  }
+
   getArticleData = async () => {
     let request = '';
 
@@ -39,11 +45,18 @@ class Articles extends Component {
     return data;
   };
 
-  handleVote = async (articleID, vote) => {
-    const voteRequest = await Axios.put(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${articleID}?vote=${vote}`
-    );
-    console.log(voteRequest);
+  // getArticleData = () => {
+  //   let request = '';
+
+  //   !this.props.match.params.topic_id
+  //     ? (request = 'articles')
+  //     : (request = `topics/${this.props.match.params.topic_id}/articles`);
+
+  //   return api.fetchArticles(request);
+  // };
+
+  handleVote = (type, id, vote) => {
+    return api.changeVote(type, id, vote);
   };
 
   displayLoading = () => {
@@ -95,7 +108,7 @@ class Articles extends Component {
                   <span
                     className="article-list-upvote al-selector"
                     onClick={() => {
-                      this.handleVote(article._id, 'up');
+                      this.handleVote('articles', article._id, 'up');
                     }}
                   >
                     Upvote
@@ -104,7 +117,7 @@ class Articles extends Component {
                   <span
                     className="article-list-downvote al-selector"
                     onClick={() => {
-                      this.handleVote(article._id, 'down');
+                      this.handleVote('articles', article._id, 'down');
                     }}
                   >
                     Downvote
