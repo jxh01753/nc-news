@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import '../css/thread.css';
 import * as api from '../api';
-import Axios from 'axios';
 import moment from 'moment';
 
 class Thread extends Component {
@@ -45,22 +44,8 @@ class Thread extends Component {
     return api.changeVote(type, id, vote);
   };
 
-  handleArticleVote = async (articleID, vote) => {
-    const voteRequest = await Axios.put(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${articleID}?vote=${vote}`
-    );
-  };
-
-  handleCommentText = (event) => {
-    this.setState({
-      commentText: event.target.value
-    });
-  };
-
-  handleDeleteComment = async (commentID) => {
-    const deletePost = await Axios.delete(
-      `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}`
-    );
+  handleDeleteComment = (comment_id) => {
+    return api.deleteComment(comment_id);
   };
 
   handleSubmitComment = (event) => {
@@ -73,6 +58,12 @@ class Thread extends Component {
       commentText: ''
     });
     return api.submitComment(data, this.props.match.params.article_id);
+  };
+
+  handleCommentText = (event) => {
+    this.setState({
+      commentText: event.target.value
+    });
   };
 
   displayContent = () => {

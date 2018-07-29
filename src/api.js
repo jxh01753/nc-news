@@ -24,3 +24,13 @@ export const submitComment = async (data, article_id) => {
   );
   return response;
 };
+
+export const deleteComment = async (comment_id) => {
+  const response = await Axios.delete(`${url}/comments/${comment_id}`);
+  return response;
+};
+
+// export const fetchArticles = async (request) => {
+//   const response = await Axios.get(`/${url}/${request}`);
+//   return response;
+// };
