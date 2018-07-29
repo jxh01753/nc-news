@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import '../css/thread.css';
 import Axios from 'axios';
 import moment from 'moment';
@@ -7,18 +8,29 @@ class Thread extends Component {
   state = {
     postContent: {},
     commentContent: {},
-    commentText: ''
+    commentText: '',
+    hasError: false
   };
 
   componentDidMount = async () => {
-    let postContent = await this.getPostData();
-    let commentContent = await this.getCommentData();
-    console.log(commentContent);
-    this.props.fetchActiveArticleID(this.props.match.params.article_id);
-    this.setState({
-      postContent,
-      commentContent
-    });
+    try {
+      let postContent = await this.getPostData();
+      let commentContent = await this.getCommentData();
+      console.log(commentContent);
+      this.props.fetchActiveArticleID(this.props.match.params.article_id);
+      this.setState({
+        postContent,
+        commentContent
+      });
+    } catch (e) {
+      this.setState({
+        hasError: true
+      });
+    }
+  };
+
+  componentDidCatch = () => {
+    this.setState({ hasError: true });
   };
 
   getPostData = async () => {
@@ -31,11 +43,18 @@ class Thread extends Component {
 
   getCommentData = async () => {
     const article_id = this.props.match.params.article_id;
-    const { data } = await Axios.get(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}/comments`
-    );
-
-    return data;
+    try {
+      const { data } = await Axios.get(
+        `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}/comments`
+      );
+      return data;
+    } catch (err) {
+      console.log(err);
+      console.log('hello');
+      this.setState({
+        hasError: true
+      });
+    }
   };
 
   handleCommentVote = async (commentID, vote) => {
@@ -77,6 +96,7 @@ class Thread extends Component {
     this.setState({
       commentText: ''
     });
+    this.forceUpdate();
   };
 
   displayContent = () => {
@@ -203,11 +223,25 @@ class Thread extends Component {
   };
 
   render() {
-    return !this.state.postContent.article &&
-      !this.state.commentContent.comments
-      ? this.displayLoading()
-      : this.displayContent();
+    return this.state.hasError ? (
+      <Redirect to="/error" />
+    ) : !this.state.commentContent.comments &&
+    !this.state.commentContent.comments ? (
+      this.displayLoading()
+    ) : (
+      this.displayContent()
+    );
   }
 }
+
+// if (this.state.hasError) {
+//   return <Redirect to= "/error"/>
+// } else {
+//   if (!this.state.commentContent.comments) {
+//     return this.displayLoading()
+//   } else {
+//     return this.displayContent();
+//   }
+// }
 
 export default Thread;

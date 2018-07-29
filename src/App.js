@@ -26,9 +26,15 @@ class App extends Component {
     const userCheck = await Axios.get(
       `https://jxh01753-nc-news.herokuapp.com/api/users/${username}`
     );
+    console.log(userCheck.status);
     if (userCheck.status === 200) {
       this.setState({
         activeUser: userCheck.data.user
+      });
+    } else if (userCheck.status === 404) {
+      this.setState({
+        error: true,
+        errorCode: userCheck.status
       });
     }
   };
@@ -74,6 +80,7 @@ class App extends Component {
             )}
           />
           <Route exact path="/404" component={NotFound} />
+          <Route exact path="/error" component={Error} />
         </div>
       </Router>
     );

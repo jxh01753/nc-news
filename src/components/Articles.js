@@ -6,7 +6,8 @@ import '../css/articles.css';
 
 class Articles extends Component {
   state = {
-    data: {}
+    data: {},
+    hasError: false
   };
 
   componentDidMount = async () => {
@@ -25,6 +26,12 @@ class Articles extends Component {
       });
     }
   };
+
+  componentDidCatch(error, info) {
+    console.log(error);
+    console.log(info);
+    this.setState({ hasError: true });
+  }
 
   getArticleData = async () => {
     let request = '';
