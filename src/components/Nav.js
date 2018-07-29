@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Route, Link } from 'react-router-dom';
 import '../css/nav.css';
 
-const Nav = () => {
+const Nav = (props) => {
   return (
     <div className="main-heading-nav">
       <div className="nav-flex-container">
@@ -13,9 +13,23 @@ const Nav = () => {
               NC News
             </Link>{' '}
             <span className="login-text">
-              <Link className="nav-login-button" to="/login">
-                Login
-              </Link>
+              {!props.activeUser.username ? (
+                <Link className="nav-login-button" to="/login">
+                  Login
+                </Link>
+              ) : (
+                <React.Fragment>
+                  <span className="nav-login-status">
+                    User: {props.activeUser.username}
+                  </span>
+                  <span
+                    className="nav-logout-button"
+                    onClick={props.handleLogout}
+                  >
+                    Logout
+                  </span>
+                </React.Fragment>
+              )}
             </span>
           </p>
         </div>
@@ -28,14 +42,12 @@ const Nav = () => {
             >
               <span className="topic-heading">Coding</span>
             </Link>{' '}
-            /{' '}
             <Link
               className="topic-linker"
               to="/topics/5b4254e3e3de0311254b94b6"
             >
               <span className="topic-heading">Cooking</span>
             </Link>{' '}
-            /{' '}
             <Link
               className="topic-linker"
               to="/topics/5b4254e3e3de0311254b94b5"

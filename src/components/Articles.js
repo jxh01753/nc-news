@@ -68,7 +68,7 @@ class Articles extends Component {
                 </Link>
               </div>
               <div className="article-list-info">
-                <p class="al-info-text">
+                <p className="al-info-text">
                   Posted by{' '}
                   <span className="article-list-username">
                     {article.created_by.username}

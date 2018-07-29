@@ -13,7 +13,7 @@ class Thread extends Component {
   componentDidMount = async () => {
     let postContent = await this.getPostData();
     let commentContent = await this.getCommentData();
-    console.log(this.props);
+    console.log(commentContent);
     this.props.fetchActiveArticleID(this.props.match.params.article_id);
     this.setState({
       postContent,
