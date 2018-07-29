@@ -1,28 +1,17 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import Axios from '../node_modules/axios';
 import './css/grid.css';
-import Articles from './components/Articles.js';
 import './css/normalize.css';
-
-// import Heading from './components/Heading';
-// import Articles from './components/Articles';
+import Articles from './components/Articles.js';
 import Thread from './components/Thread';
 import Nav from './components/Nav';
-// import Login from './components/Login';
+import Login from './components/Login';
 // import UserProfile from './components/UserProfile';
-// import NewComment from './components/NewComment';
-// import './css/normalize.css';
-// import './css/App.css';
-// import Axios from '../node_modules/axios';
 
 class App extends Component {
   state = {
-    activeUser: {
-      _id: '5b4254e3e3de0311254b94bc',
-      username: 'jessjelly',
-      name: 'Jess Jelly',
-      avatar_url: 'none'
-    },
+    activeUser: {},
     activeArticleID: ''
   };
 
@@ -30,6 +19,18 @@ class App extends Component {
     this.setState({
       activeArticleID: article_id
     });
+  };
+
+  handleLogin = async (username, password) => {
+    console.log('hit the handleLogin');
+    const userCheck = await Axios.get(
+      `https://jxh01753-nc-news.herokuapp.com/api/users/${username}`
+    );
+    if (userCheck.status === 200) {
+      this.setState({
+        activeUser: userCheck.data.user
+      });
+    }
   };
 
   render() {
@@ -49,6 +50,13 @@ class App extends Component {
                 activeUser={this.state.activeUser}
                 fetchActiveArticleID={this.fetchActiveArticleID}
               />
+            )}
+          />
+          <Route path="/login" component={Login} />
+          <Route
+            path="/login"
+            render={(props) => (
+              <Login {...props} handleLogin={this.handleLogin} />
             )}
           />
         </div>

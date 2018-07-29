@@ -12,7 +12,11 @@ const Nav = () => {
             <Link className="heading-linker" to="/">
               NC News
             </Link>{' '}
-            <span className="login-text">Login</span>
+            <span className="login-text">
+              <Link className="nav-login-button" to="/login">
+                Login
+              </Link>
+            </span>
           </p>
         </div>
         {/* Box 2 */}
@@ -29,14 +33,14 @@ const Nav = () => {
               className="topic-linker"
               to="/topics/5b4254e3e3de0311254b94b6"
             >
-              <span class="topic-heading">Cooking</span>
+              <span className="topic-heading">Cooking</span>
             </Link>{' '}
             /{' '}
             <Link
               className="topic-linker"
               to="/topics/5b4254e3e3de0311254b94b5"
             >
-              <span class="topic-heading">Football</span>
+              <span className="topic-heading">Football</span>
             </Link>
           </p>
         </nav>

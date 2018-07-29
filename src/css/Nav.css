@@ -25,6 +25,10 @@
   font-size: 0.938em;
 }
 
+.nav-login-button {
+  text-decoration-line: none;
+}
+
 .login-text {
   font-weight: 100;
   margin-left: 1em;
