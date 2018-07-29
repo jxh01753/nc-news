@@ -13,6 +13,8 @@ class Thread extends Component {
   componentDidMount = async () => {
     let postContent = await this.getPostData();
     let commentContent = await this.getCommentData();
+    console.log(this.props);
+    this.props.fetchActiveArticleID(this.props.match.params.article_id);
     this.setState({
       postContent,
       commentContent
@@ -24,7 +26,6 @@ class Thread extends Component {
     const { data } = await Axios.get(
       `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}`
     );
-    console.log(data);
     return data;
   };
 
@@ -33,7 +34,7 @@ class Thread extends Component {
     const { data } = await Axios.get(
       `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}/comments`
     );
-    console.log(data);
+
     return data;
   };
 
@@ -47,7 +48,6 @@ class Thread extends Component {
     const voteRequest = await Axios.put(
       `https://jxh01753-nc-news.herokuapp.com/api/articles/${articleID}?vote=${vote}`
     );
-    console.log(voteRequest);
   };
 
   handleCommentText = (event) => {
@@ -56,11 +56,27 @@ class Thread extends Component {
     });
   };
 
+  handleDeleteComment = async (commentID) => {
+    const deletePost = await Axios.delete(
+      `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}`
+    );
+  };
+
   handleSubmitComment = async (event) => {
     event.preventDefault();
     let data = {
-      body: this.state.commentText
+      body: this.state.commentText,
+      created_by: this.props.activeUser._id
     };
+    const response = await Axios.post(
+      `https://jxh01753-nc-news.herokuapp.com/api/articles/${
+        this.props.match.params.article_id
+      }/comments`,
+      data
+    );
+    this.setState({
+      commentText: ''
+    });
   };
 
   displayContent = () => {
@@ -99,9 +115,16 @@ class Thread extends Component {
             </div>
             <div className="comment-area">
               <form className="comment-box">
-                <textarea className="comment-input" placeholder="Comment.." />
+                <textarea
+                  className="comment-input"
+                  placeholder="Comment.."
+                  onChange={this.handleCommentText}
+                  value={this.state.commentText}
+                />
                 <br />
-                <button type="submit">Submit</button>
+                <button type="submit" onClick={this.handleSubmitComment}>
+                  Submit
+                </button>
               </form>
             </div>
             <div className="thread-comments">
@@ -142,7 +165,23 @@ class Thread extends Component {
                           }
                         >
                           Downvote
-                        </span>
+                        </span>{' '}
+                        {this.props.activeUser.username ===
+                        comment.created_by.username ? (
+                          <React.Fragment>
+                            <span className="comment-delete-seperator">| </span>
+                            <span
+                              className="comment-delete"
+                              onClick={() =>
+                                this.handleDeleteComment(comment._id)
+                              }
+                            >
+                              Delete{' '}
+                            </span>
+                          </React.Fragment>
+                        ) : (
+                          <span className="blank" />
+                        )}
                       </p>
                     </React.Fragment>
                   );

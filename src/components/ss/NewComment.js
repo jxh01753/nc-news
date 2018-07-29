@@ -14,6 +14,10 @@ class NewComment extends Component {
     });
   };
 
+  handleDeleteComemnt = async (event) => {
+    console.log('Suprise!');
+  };
+
   handleSubmitComment = async (event) => {
     event.preventDefault();
     let data = {

@@ -5,6 +5,7 @@
 
 .thread-content {
   margin-left: 2.4em;
+  margin-right: 1em;
 }
 
 .thread-info {
@@ -21,12 +22,13 @@
 }
 
 .comment-input {
-  width: 99%;
+  width: 94%;
   height: 10em;
 }
 
 .thread-comments {
   margin-left: 2.4em;
+  margin-right: 1em;
 }
 
 .comment-info {
@@ -37,5 +39,9 @@
 
 .comment-upvote,
 .comment-downvote {
+  cursor: pointer;
+}
+
+.comment-delete {
   cursor: pointer;
 }

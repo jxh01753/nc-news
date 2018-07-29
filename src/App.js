@@ -26,6 +26,12 @@ class App extends Component {
     activeArticleID: ''
   };
 
+  fetchActiveArticleID = (article_id) => {
+    this.setState({
+      activeArticleID: article_id
+    });
+  };
+
   render() {
     return (
       <Router>
@@ -35,7 +41,16 @@ class App extends Component {
           <Nav />
           <Route exact path="/" component={Articles} />
           <Route path="/topics/:topic_id/" component={Articles} />
-          <Route path="/articles/:article_id/" component={Thread} />
+          <Route
+            path="/articles/:article_id/"
+            render={(props) => (
+              <Thread
+                {...props}
+                activeUser={this.state.activeUser}
+                fetchActiveArticleID={this.fetchActiveArticleID}
+              />
+            )}
+          />
         </div>
       </Router>
     );
@@ -93,15 +108,15 @@ class App extends Component {
   //         <div className="side-bar" />
   //         <Route exact path="/" component={Articles} />
   //         <Route path="/topics/:topic_id/" component={Articles} />
-  //         <Route
-  //           path="/articles/:article_id/"
-  //           render={(props) => (
-  //             <Thread
-  //               {...props}
-  //               newCommentViewChange={this.newCommentViewChange}
-  //             />
-  //           )}
-  //         />
+  // <Route
+  //   path="/articles/:article_id/"
+  //   render={(props) => (
+  //     <Thread
+  //       {...props}
+  //       newCommentViewChange={this.newCommentViewChange}
+  //     />
+  //   )}
+  // />
   //         {/* This looks quirky but it seems to work */}
   //         {this.state.activeUser.username ? (
   //           // <UserProfile
