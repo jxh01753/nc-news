@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import '../css/thread.css';
+import * as api from '../api';
 import Axios from 'axios';
 import moment from 'moment';
 
@@ -16,7 +17,6 @@ class Thread extends Component {
     try {
       let postContent = await this.getPostData();
       let commentContent = await this.getCommentData();
-      console.log(commentContent);
       this.props.fetchActiveArticleID(this.props.match.params.article_id);
       this.setState({
         postContent,
@@ -33,34 +33,16 @@ class Thread extends Component {
     this.setState({ hasError: true });
   };
 
-  getPostData = async () => {
-    const article_id = this.props.match.params.article_id;
-    const { data } = await Axios.get(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}`
-    );
-    return data;
+  getPostData = () => {
+    return api.fetchPostData(this.props.match.params.article_id);
   };
 
-  getCommentData = async () => {
-    const article_id = this.props.match.params.article_id;
-    try {
-      const { data } = await Axios.get(
-        `https://jxh01753-nc-news.herokuapp.com/api/articles/${article_id}/comments`
-      );
-      return data;
-    } catch (err) {
-      console.log(err);
-      console.log('hello');
-      this.setState({
-        hasError: true
-      });
-    }
+  getCommentData = () => {
+    return api.fetchCommentData(this.props.match.params.article_id);
   };
 
-  handleCommentVote = async (commentID, vote) => {
-    const voteRequest = await Axios.put(
-      `https://jxh01753-nc-news.herokuapp.com/api/comments/${commentID}?vote=${vote}`
-    );
+  handleVote = (type, id, vote) => {
+    return api.changeVote(type, id, vote);
   };
 
   handleArticleVote = async (articleID, vote) => {
@@ -81,22 +63,16 @@ class Thread extends Component {
     );
   };
 
-  handleSubmitComment = async (event) => {
+  handleSubmitComment = (event) => {
     event.preventDefault();
     let data = {
       body: this.state.commentText,
       created_by: this.props.activeUser._id
     };
-    const response = await Axios.post(
-      `https://jxh01753-nc-news.herokuapp.com/api/articles/${
-        this.props.match.params.article_id
-      }/comments`,
-      data
-    );
     this.setState({
       commentText: ''
     });
-    this.forceUpdate();
+    return api.submitComment(data, this.props.match.params.article_id);
   };
 
   displayContent = () => {
@@ -129,8 +105,32 @@ class Thread extends Component {
                   {' '}
                   Votes: {this.state.postContent.article.votes}
                 </span>{' '}
-                | <span className="thread-info-upvote">Upvote</span> /{' '}
-                <span className="thread-info-downvote">Downvote</span>
+                |{' '}
+                <span
+                  className="thread-info-upvote"
+                  onClick={() =>
+                    this.handleVote(
+                      'articles',
+                      this.state.postContent.article._id,
+                      'up'
+                    )
+                  }
+                >
+                  Upvote
+                </span>{' '}
+                /{' '}
+                <span
+                  className="thread-info-downvote"
+                  onClick={() =>
+                    this.handleVote(
+                      'articles',
+                      this.state.postContent.article._id,
+                      'down'
+                    )
+                  }
+                >
+                  Downvote
+                </span>
               </p>
             </div>
             <div className="comment-area">
@@ -172,7 +172,7 @@ class Thread extends Component {
                         <span
                           className="comment-upvote"
                           onClick={() =>
-                            this.handleCommentVote(comment._id, 'up')
+                            this.handleVote('comments', comment._id, 'up')
                           }
                         >
                           Upvote
@@ -181,7 +181,7 @@ class Thread extends Component {
                         <span
                           className="comment-downvote"
                           onClick={() =>
-                            this.handleCommentVote(comment._id, 'down')
+                            this.handleVote('comments', comment._id, 'down')
                           }
                         >
                           Downvote
