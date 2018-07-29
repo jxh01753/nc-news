@@ -27,6 +27,12 @@
 
 .nav-login-button {
   text-decoration-line: none;
+  color: black;
+}
+
+.nav-logout-button {
+  cursor: pointer;
+  margin-left: 1em;
 }
 
 .login-text {
