@@ -1,0 +1,79 @@
+.thread-container {
+  display: grid;
+  height: 100%;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas: 'post-content-area post-content-area' 'comment-content-area comment-content-area' 'comment-content-area comment-content-area';
+}
+
+.post-content-area {
+  grid-area: post-content-area;
+  border-bottom: solid;
+  border-color: #000000;
+  border-width: 0.1em;
+}
+
+.post-info,
+.post-author,
+.post-date {
+  display: inline-block;
+}
+
+.post-info {
+  margin: 0.1em 1em;
+}
+
+.post-author {
+  margin: 0em 0.3em;
+}
+
+.post-title {
+  margin-top: 1em;
+  margin-left: 1em;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.post-body {
+  border: solid;
+  border-width: 0.05em;
+  border-color: #000000;
+  padding: 1em;
+}
+
+.comment-control-area,
+.comments-area-title,
+.btn-submit-new-comment,
+.btn-area {
+  display: inline-block;
+}
+
+.btn-area {
+  margin-left: 1em;
+  margin-bottom: 0.5em;
+}
+
+.comment-content-area {
+  grid-area: comment-content-area;
+  border-top: solid;
+  border-color: #000000;
+  border-width: 0.1em;
+  overflow: scroll;
+}
+
+.btn-submit-new-comment {
+  padding: 0em;
+}
+
+.comments-area-title {
+  margin-left: 1em;
+}
+.comment-box {
+  border: solid;
+  border-width: 0.05em;
+}
+
+.comment-body,
+.comment-info {
+  margin-left: 1em;
+}

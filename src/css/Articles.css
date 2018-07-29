@@ -1,0 +1,41 @@
+/* Main body container */
+
+.article-link {
+  color: blueviolet;
+  font-weight: bold;
+  text-decoration-line: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.al-content {
+  display: inline;
+}
+
+.al-info-text {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #888;
+}
+
+.al-selector {
+  cursor: pointer;
+}
+
+.comment-link {
+  text-decoration-line: none;
+  color: #888;
+}
+
+.article-list-info {
+  font-size: 0.8em;
+}
+
+.article-title {
+  margin-bottom: -0.5em;
+}
+
+.loading-text {
+  margin-left: 2.4em;
+}

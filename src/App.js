@@ -1,18 +1,149 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import Axios from '../node_modules/axios';
+import './css/grid.css';
 import './css/normalize.css';
-import './css/App.css';
+import Articles from './components/Articles.js';
+import Thread from './components/Thread';
+import Nav from './components/Nav';
+import Login from './components/Login';
+// import UserProfile from './components/UserProfile';
 
 class App extends Component {
+  state = {
+    activeUser: {},
+    activeArticleID: ''
+  };
+
+  fetchActiveArticleID = (article_id) => {
+    this.setState({
+      activeArticleID: article_id
+    });
+  };
+
+  handleLogin = async (username, password) => {
+    console.log('hit the handleLogin');
+    const userCheck = await Axios.get(
+      `https://jxh01753-nc-news.herokuapp.com/api/users/${username}`
+    );
+    if (userCheck.status === 200) {
+      this.setState({
+        activeUser: userCheck.data.user
+      });
+    }
+  };
+
   render() {
     return (
-      <div class="grid-container">
-        <div class="heading-logo" />
-        <div class="heading-nav-bar" />
-        <div class="side-bar" />
-        <div class="main-window" />
-      </div>
+      <Router>
+        <div className="grid-container">
+          <div className="left-margin" />
+          <div className="right-margin" />
+          <Nav />
+          <Route exact path="/" component={Articles} />
+          <Route path="/topics/:topic_id/" component={Articles} />
+          <Route
+            path="/articles/:article_id/"
+            render={(props) => (
+              <Thread
+                {...props}
+                activeUser={this.state.activeUser}
+                fetchActiveArticleID={this.fetchActiveArticleID}
+              />
+            )}
+          />
+          <Route path="/login" component={Login} />
+          <Route
+            path="/login"
+            render={(props) => (
+              <Login {...props} handleLogin={this.handleLogin} />
+            )}
+          />
+        </div>
+      </Router>
     );
   }
+
+  // state = {
+  //   newCommentView: false,
+  //   activeUser: {
+  //     _id: '5b4254e3e3de0311254b94bc',
+  //     username: 'jessjelly',
+  //     name: 'Jess Jelly',
+  //     avatar_url: 'none'
+  //   },
+  //   activeArticleID: ''
+  // };
+
+  /*
+  state = {
+    newCommentView: false,
+    activeUser: {}
+  }
+  */
+
+  // newCommentViewChange = (articleInfo) => {
+  //   this.setState({
+  //     newCommentView: true,
+  //     activeArticleID: articleInfo
+  //   });
+  // };
+
+  // handleLogin = async (username, password) => {
+  //   const userCheck = await Axios.get(
+  //     `https://jxh01753-nc-news.herokuapp.com/api/users/${username}`
+  //   );
+  //   if (userCheck.status === 200) {
+  //     this.setState({
+  //       activeUser: userCheck.data.user
+  //     });
+  //   }
+  // };
+
+  // handleLogout = (event) => {
+  //   console.log('Hit the logout function');
+  //   this.setState({
+  //     activeUser: {}
+  //   });
+  // };
+
+  // render() {
+  //   return (
+  //     <Router>
+  //       <div className="grid-container">
+  //         <Heading />
+  //         <Nav />
+  //         <div className="side-bar" />
+  //         <Route exact path="/" component={Articles} />
+  //         <Route path="/topics/:topic_id/" component={Articles} />
+  // <Route
+  //   path="/articles/:article_id/"
+  //   render={(props) => (
+  //     <Thread
+  //       {...props}
+  //       newCommentViewChange={this.newCommentViewChange}
+  //     />
+  //   )}
+  // />
+  //         {/* This looks quirky but it seems to work */}
+  //         {this.state.activeUser.username ? (
+  //           // <UserProfile
+  //           //   activeUser={this.state.activeUser}
+  //           //   handleLogout={this.handleLogout}
+  //           // />
+  //           <NewComment
+  //             activeUser={this.state.activeUser}
+  //             activeArticleID={this.state.activeArticleID}
+  //           />
+  //         ) : (
+  //           <Login handleLogin={this.handleLogin} />
+  //         )}
+  //       </div>
+  //     </Router>
+  //   );
+  // }
 }
+
+// NewComment needs the active user from state to determine who the authour of the post is. Articles and Posts will also need the active user to determine what user is allowed to delete.
 
 export default App;

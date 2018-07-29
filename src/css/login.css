@@ -1,0 +1,18 @@
+form {
+  margin-left: 2.4em;
+}
+
+/* This needs to be 2.5em to match up with the form for some reason */
+.login-text {
+  font-weight: 100;
+  color: black;
+  margin-left: 2.5em;
+}
+
+.login-area-title {
+  margin-left: 2.5em;
+}
+
+.login-submit {
+  margin-top: 0.2em;
+}
