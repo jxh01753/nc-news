@@ -2,11 +2,13 @@
 
 This is the Northcoders News Front-End. It's a Reddit/Hacker News/Lobste.rs-like news aggregate site built using `React`.
 
-A live deployment can be accessed here - [https://nostalgic-kirch-6670c2.netlify.com/](https://nostalgic-kirch-6670c2.netlify.com/)
-
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+
+A live deployment can be accessed here - [https://nostalgic-kirch-6670c2.netlify.com/](https://nostalgic-kirch-6670c2.netlify.com/)
+
+To post, you will need to login as a user. It is recommended to login as `jessjelly` with any password.
 
 ### Prerequisites
 
