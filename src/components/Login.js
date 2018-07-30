@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import propTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import '../css/login.css';
 
@@ -69,5 +70,10 @@ class Login extends Component {
     );
   }
 }
+
+Login.propTypes = {
+  handleLogin: propTypes.function,
+  activeUser: propTypes.object
+};
 
 export default Login;

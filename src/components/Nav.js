@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Route, Link } from 'react-router-dom';
+import propTypes from 'prop-types';
 import '../css/nav.css';
+import Thread from './Thread';
 
 const Nav = (props) => {
   return (
@@ -59,6 +61,11 @@ const Nav = (props) => {
       </div>
     </div>
   );
+};
+
+Nav.propTypes = {
+  activeUser: propTypes.function,
+  handleLogout: propTypes.function
 };
 
 export default Nav;

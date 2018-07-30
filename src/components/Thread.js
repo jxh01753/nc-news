@@ -3,6 +3,7 @@ import { Redirect } from 'react-router';
 import '../css/thread.css';
 import * as api from '../api';
 import moment from 'moment';
+import propTypes from 'prop-types';
 
 class Thread extends Component {
   state = {
@@ -55,7 +56,7 @@ class Thread extends Component {
       body: this.state.commentText,
       created_by: this.props.activeUser._id
     };
-    const response = api
+    return api
       .submitComment(data, this.props.match.params.article_id)
       .then((res) => {
         let newData = [...this.state.commentContent.comments, res.data.result];
@@ -239,5 +240,10 @@ class Thread extends Component {
     );
   }
 }
+
+Thread.propTypes = {
+  activeUser: propTypes.object,
+  handleLogin: propTypes.function
+};
 
 export default Thread;

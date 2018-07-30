@@ -129,29 +129,3 @@ class Articles extends Component {
 }
 
 export default Articles;
-
-/*
-<li className="article-list-item al-content">
-            <div className="article-title">
-              <a href="https://www.google.com">
-                <p className="article-list-title al-content al-text">
-                  Atlassian announces new partnership with Slack, will
-                  discontinue Hipchat and Stride.
-                </p>
-              </a>
-            </div>
-            <div className="article-list-info">
-              <p className="article-list-title al-content al-text">
-                Posted by{' '}
-                <span className="article-list-username">jessjelly</span> on{' '}
-                <span className="article-list-date">
-                  12th September 2018 21:32
-                </span>{' '}
-                | <span className="article-list-comments">Comments: 12</span> |{' '}
-                <span className="article-list-votes">Votes: 12</span> |{' '}
-                <span className="article-list-upvote">Upvote</span> /{' '}
-                <span className="article-list-downvote">Downvote</span>
-              </p>
-            </div>
-          </li>
-*/
