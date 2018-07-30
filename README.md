@@ -32,7 +32,7 @@ nc-news has been built with -
 
 **John Harrington** - [jxh01753](https://github.com/jxh01753)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/jxh01753/nc-news/contributors) who participated in this project.
 
 ## Acknowledgments
 
