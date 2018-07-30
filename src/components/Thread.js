@@ -9,7 +9,8 @@ class Thread extends Component {
     postContent: {},
     commentContent: {},
     commentText: '',
-    hasError: false
+    hasError: false,
+    errNotLoggedIn: false
   };
 
   componentDidMount = async () => {
@@ -54,10 +55,22 @@ class Thread extends Component {
       body: this.state.commentText,
       created_by: this.props.activeUser._id
     };
-    this.setState({
-      commentText: ''
-    });
-    return api.submitComment(data, this.props.match.params.article_id);
+    const response = api
+      .submitComment(data, this.props.match.params.article_id)
+      .then((res) => {
+        let newData = [...this.state.commentContent.comments, res.data.result];
+        this.setState({
+          commentContent: {
+            comments: newData
+          },
+          commentText: ''
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          errNotLoggedIn: true
+        });
+      });
   };
 
   handleCommentText = (event) => {
@@ -216,6 +229,8 @@ class Thread extends Component {
   render() {
     return this.state.hasError ? (
       <Redirect to="/error" />
+    ) : this.state.errNotLoggedIn ? (
+      <Redirect to="/error401" />
     ) : !this.state.commentContent.comments &&
     !this.state.commentContent.comments ? (
       this.displayLoading()
@@ -224,15 +239,5 @@ class Thread extends Component {
     );
   }
 }
-
-// if (this.state.hasError) {
-//   return <Redirect to= "/error"/>
-// } else {
-//   if (!this.state.commentContent.comments) {
-//     return this.displayLoading()
-//   } else {
-//     return this.displayContent();
-//   }
-// }
 
 export default Thread;

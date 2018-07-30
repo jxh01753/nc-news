@@ -8,6 +8,7 @@ import Thread from './components/Thread';
 import Nav from './components/Nav';
 import Login from './components/Login';
 import Error from './components/Error';
+import Error401 from './components/Error401';
 import NotFound from './components/NotFound';
 
 class App extends Component {
@@ -81,6 +82,7 @@ class App extends Component {
           />
           <Route exact path="/404" component={NotFound} />
           <Route exact path="/error" component={Error} />
+          <Route exact path="/error401" component={Error401} />
         </div>
       </Router>
     );

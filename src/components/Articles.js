@@ -45,16 +45,6 @@ class Articles extends Component {
     return data;
   };
 
-  // getArticleData = () => {
-  //   let request = '';
-
-  //   !this.props.match.params.topic_id
-  //     ? (request = 'articles')
-  //     : (request = `topics/${this.props.match.params.topic_id}/articles`);
-
-  //   return api.fetchArticles(request);
-  // };
-
   handleVote = (type, id, vote) => {
     return api.changeVote(type, id, vote);
   };
