@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as api from '../api';
 import Axios from 'axios';
 import moment from 'moment';
@@ -62,7 +62,7 @@ class Articles extends Component {
       <div className="main-content-area">
         <ul className="all-articles-list">
           {articles.map((article) => (
-            <li className="article-list-item al-content">
+            <li className="article-list-item al-content" key={article._id}>
               <div className="article-title">
                 <Link className="article-link" to={`/articles/${article._id}/`}>
                   <p className="article-list-title al-content al-text">

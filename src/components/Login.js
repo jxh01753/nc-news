@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { Redirect } from 'react-router-dom';
+// import { Redirect } from 'react-router-dom';
 import '../css/login.css';
 
 class Login extends Component {
@@ -29,6 +29,8 @@ class Login extends Component {
       password: ''
     });
   };
+
+  displayContent = () => {};
 
   render() {
     return (
@@ -72,7 +74,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  handleLogin: propTypes.function,
+  handleLogin: propTypes.func,
   activeUser: propTypes.object
 };
 

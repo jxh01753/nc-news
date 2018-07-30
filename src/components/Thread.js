@@ -157,7 +157,7 @@ class Thread extends Component {
               <div className="comment-body">
                 {this.state.commentContent.comments.map((comment) => {
                   return (
-                    <React.Fragment>
+                    <React.Fragment key={comment._id}>
                       <p className="comment-text">{comment.body}</p>
                       <p className="comment-info">
                         <span className="comment-author">
@@ -243,7 +243,7 @@ class Thread extends Component {
 
 Thread.propTypes = {
   activeUser: propTypes.object,
-  handleLogin: propTypes.function
+  handleLogin: propTypes.func
 };
 
 export default Thread;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Axios from '../node_modules/axios';
 import './css/grid.css';
 import './css/normalize.css';
@@ -7,9 +7,9 @@ import Articles from './components/Articles.js';
 import Thread from './components/Thread';
 import Nav from './components/Nav';
 import Login from './components/Login';
-import Error from './components/Error';
+import Error400 from './components/Error400';
 import Error401 from './components/Error401';
-import NotFound from './components/NotFound';
+import Error404 from './components/Error404';
 
 class App extends Component {
   state = {
@@ -55,33 +55,33 @@ class App extends Component {
             activeUser={this.state.activeUser}
             handleLogout={this.handleLogout}
           />
-          <Route exact path="/" component={Articles} />
-          <Route exact path="/topics/:topic_id/" component={Articles} />
-          <Route
-            exact
-            path="/articles/:article_id/"
-            render={(props) => (
-              <Thread
-                {...props}
-                activeUser={this.state.activeUser}
-                fetchActiveArticleID={this.fetchActiveArticleID}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/login"
-            render={(props) => (
-              <Login
-                {...props}
-                handleLogin={this.handleLogin}
-                activeUser={this.state.activeUser}
-              />
-            )}
-          />
-          <Route exact path="/404" component={NotFound} />
-          <Route exact path="/error" component={Error} />
-          <Route exact path="/error401" component={Error401} />
+          <Switch>
+            <Route exact path="/" component={Articles} />
+            <Route path="/topics/:topic_id/" component={Articles} />
+            <Route
+              path="/articles/:article_id/"
+              render={(props) => (
+                <Thread
+                  {...props}
+                  activeUser={this.state.activeUser}
+                  fetchActiveArticleID={this.fetchActiveArticleID}
+                />
+              )}
+            />
+            <Route
+              path="/login"
+              render={(props) => (
+                <Login
+                  {...props}
+                  handleLogin={this.handleLogin}
+                  activeUser={this.state.activeUser}
+                />
+              )}
+            />
+            <Route path="/error" component={Error400} />
+            <Route path="/error401" component={Error401} />
+            <Route component={Error404} />
+          </Switch>
         </div>
       </Router>
     );
