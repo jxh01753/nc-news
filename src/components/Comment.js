@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import VoteButton from './VoteButton';
 import * as api from '../api';
 
 const Comment = (props) => {
@@ -19,9 +20,17 @@ const Comment = (props) => {
         {' | '}
         <span className="comment-votes">Votes: {props.content.votes}</span>
         {' | '}
-        <span className="comment-upvote">{' Upvote '}</span>
+        <VoteButton
+          voteType={'comments'}
+          elementID={props.content._id}
+          direction={'up'}
+        />
         {' | '}
-        <span className="comment-downvote">{' Downvote '}</span>
+        <VoteButton
+          voteType={'comments'}
+          elementID={props.content._id}
+          direction={'down'}
+        />
         {props.content.created_by.username === props.activeUser.username ? (
           <React.Fragment>
             <span className="comment-delete-seperator">{' | '}</span>

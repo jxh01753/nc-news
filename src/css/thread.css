@@ -47,6 +47,10 @@
   cursor: pointer;
 }
 
+.vote-button {
+  cursor: pointer;
+}
+
 .comment-delete {
   cursor: pointer;
 }
