@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
 import VoteButton from './VoteButton';
+import propTypes from 'prop-types';
+import Article from './Article';
 
 const ArticleContent = (props) => {
   return (
@@ -46,6 +48,11 @@ const ArticleContent = (props) => {
       </div>
     </div>
   );
+};
+
+ArticleContent.propTypes = {
+  commentContent: propTypes.object,
+  postContent: propTypes.object
 };
 
 export default ArticleContent;

@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import VoteButton from './VoteButton';
 import DeleteButton from './DeleteButton';
+import propTypes from 'prop-types';
 
 const Comment = (props) => {
   // is this inefficient? we're declaring this everytime a comment is mapped?
@@ -39,6 +40,11 @@ const Comment = (props) => {
       </p>
     </React.Fragment>
   );
+};
+
+Comment.propTypes = {
+  activeUser: propTypes.object,
+  content: propTypes.object
 };
 
 export default Comment;
