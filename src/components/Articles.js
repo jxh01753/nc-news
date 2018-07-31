@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import * as api from '../api';
 import Axios from 'axios';
 import Article from './Article';
-import moment from 'moment';
 import '../css/articles.css';
 
 class Articles extends Component {
@@ -33,6 +30,7 @@ class Articles extends Component {
     this.setState({ hasError: true });
   }
 
+  // This needs to be extracted to the api.
   getArticleData = async () => {
     let request = '';
 
@@ -44,10 +42,6 @@ class Articles extends Component {
       `https://jxh01753-nc-news.herokuapp.com/api/${request}`
     );
     return data;
-  };
-
-  handleVote = (type, id, vote) => {
-    return api.changeVote(type, id, vote);
   };
 
   displayLoading = () => {
@@ -68,6 +62,7 @@ class Articles extends Component {
     );
   };
 
+  // need to account for error here and redirect if necessary
   render() {
     return !this.state.data.articles
       ? this.displayLoading()

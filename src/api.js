@@ -30,6 +30,11 @@ export const deleteComment = async (comment_id) => {
   return response;
 };
 
+export const fetchTopics = async () => {
+  const response = await Axios.get(`${url}/topics`);
+  return response;
+};
+
 // export const fetchArticles = async (request) => {
 //   const response = await Axios.get(`/${url}/${request}`);
 //   return response;
