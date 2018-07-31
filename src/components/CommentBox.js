@@ -3,13 +3,7 @@ import * as api from '../api';
 
 class CommentBox extends Component {
   state = {
-    commentText: '',
-    activeUser: {
-      _id: '5b4254e3e3de0311254b94b7',
-      username: 'tickle122',
-      name: 'Tom Tickle',
-      avatar_url: 'none'
-    }
+    commentText: ''
   };
 
   handleCommentText = (event) => {
@@ -20,10 +14,10 @@ class CommentBox extends Component {
 
   handleSubmitComment = (event) => {
     event.preventDefault();
-    if (!this.state.activeUser) return '';
+    if (!this.props.activeUser) return '';
     let data = {
       body: this.state.commentText,
-      created_by: this.state.activeUser._id
+      created_by: this.props.activeUser._id
     };
     this.setState({
       commentText: ''
@@ -45,7 +39,7 @@ class CommentBox extends Component {
                 : 'You need to log in to post a comment.'
             }
             onChange={this.handleCommentText}
-            value={this.state.activeUser ? this.state.commentText : ''}
+            value={this.props.activeUser ? this.state.commentText : ''}
           />
           <br />
           <button type="submit" onClick={this.handleSubmitComment}>

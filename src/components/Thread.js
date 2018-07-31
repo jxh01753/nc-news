@@ -5,6 +5,7 @@ import * as api from '../api';
 import moment from 'moment';
 import ArticleContent from './ArticleContent';
 import CommentBox from './CommentBox';
+import Comment from './Comment';
 import propTypes from 'prop-types';
 
 class Thread extends Component {
@@ -89,76 +90,16 @@ class Thread extends Component {
           postContent={this.state.postContent}
           commentContent={this.state.commentContent}
         />
-        {/* <div className="comment-area">
-          <form className="comment-box">
-            <textarea
-              className="comment-input"
-              placeholder="Comment.."
-              onChange={this.handleCommentText}
-              value={this.state.commentText}
-            />
-            <br />
-            <button type="submit" onClick={this.handleSubmitComment}>
-              Submit
-            </button>
-          </form>
-        </div> */}
-        <CommentBox articleid={this.props.match.params.article_id} />
+        <CommentBox
+          articleid={this.props.match.params.article_id}
+          activeUser={this.props.activeUser}
+        />
         <div className="thread-comments">
           <p className="thread-comments-title">Comments</p>
           <div className="comment-body">
-            {this.state.commentContent.comments.map((comment) => {
-              return (
-                <React.Fragment key={comment._id}>
-                  <p className="comment-text">{comment.body}</p>
-                  <p className="comment-info">
-                    <span className="comment-author">
-                      Comment by {comment.created_by.username}
-                    </span>{' '}
-                    on{' '}
-                    <span className="comment-date">
-                      {moment(comment.created_at).format('Do MMMM YYYY HH:mm')}
-                    </span>{' '}
-                    |{' '}
-                    <span className="comment-votes">
-                      Votes: {comment.votes}
-                    </span>{' '}
-                    |{' '}
-                    <span
-                      className="comment-upvote"
-                      onClick={() =>
-                        this.handleVote('comments', comment._id, 'up')
-                      }
-                    >
-                      Upvote
-                    </span>{' '}
-                    /{' '}
-                    <span
-                      className="comment-downvote"
-                      onClick={() =>
-                        this.handleVote('comments', comment._id, 'down')
-                      }
-                    >
-                      Downvote
-                    </span>{' '}
-                    {this.props.activeUser.username ===
-                    comment.created_by.username ? (
-                      <React.Fragment>
-                        <span className="comment-delete-seperator">| </span>
-                        <span
-                          className="comment-delete"
-                          onClick={() => this.handleDeleteComment(comment._id)}
-                        >
-                          Delete{' '}
-                        </span>
-                      </React.Fragment>
-                    ) : (
-                      <span className="blank" />
-                    )}
-                  </p>
-                </React.Fragment>
-              );
-            })}
+            {this.state.commentContent.comments.map((comment) => (
+              <Comment content={comment} />
+            ))}
           </div>
         </div>
       </div>
