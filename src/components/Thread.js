@@ -66,7 +66,7 @@ class Thread extends Component {
           <p className="thread-comments-title">Comments</p>
           <div className="comment-body">
             {this.state.commentContent.comments.map((comment) => (
-              <Comment content={comment} activeUser={this.props} />
+              <Comment content={comment} activeUser={this.props.activeUser} />
             ))}
           </div>
         </div>

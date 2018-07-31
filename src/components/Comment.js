@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 import VoteButton from './VoteButton';
-import * as api from '../api';
+import DeleteButton from './DeleteButton';
 
 const Comment = (props) => {
   // is this inefficient? we're declaring this everytime a comment is mapped?
@@ -32,25 +32,13 @@ const Comment = (props) => {
           direction={'down'}
         />
         {props.content.created_by.username === props.activeUser.username ? (
-          <React.Fragment>
-            <span className="comment-delete-seperator">{' | '}</span>
-            <span
-              className="comment-delete"
-              onClick={() => handleDeleteComment(props.content._id)}
-            >
-              Delete
-            </span>
-          </React.Fragment>
+          <DeleteButton elementID={props.content._id} />
         ) : (
           <span className="blank" />
         )}
       </p>
     </React.Fragment>
   );
-};
-
-const handleDeleteComment = (commentid) => {
-  return api.deleteComment(commentid);
 };
 
 export default Comment;
