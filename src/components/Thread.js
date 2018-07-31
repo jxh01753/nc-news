@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import '../css/thread.css';
 import * as api from '../api';
-import moment from 'moment';
 import ArticleContent from './ArticleContent';
 import CommentBox from './CommentBox';
 import Comment from './Comment';
@@ -13,8 +12,7 @@ class Thread extends Component {
     postContent: {},
     commentContent: {},
     commentText: '',
-    hasError: false,
-    errNotLoggedIn: false
+    hasError: false
   };
 
   componentDidMount = async () => {
@@ -53,36 +51,6 @@ class Thread extends Component {
     return api.deleteComment(comment_id);
   };
 
-  handleSubmitComment = (event) => {
-    event.preventDefault();
-    let data = {
-      body: this.state.commentText,
-      created_by: this.props.activeUser._id
-    };
-    return api
-      .submitComment(data, this.props.match.params.article_id)
-      .then((res) => {
-        let newData = [...this.state.commentContent.comments, res.data.result];
-        this.setState({
-          commentContent: {
-            comments: newData
-          },
-          commentText: ''
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          errNotLoggedIn: true
-        });
-      });
-  };
-
-  handleCommentText = (event) => {
-    this.setState({
-      commentText: event.target.value
-    });
-  };
-
   displayContent = () => {
     return (
       <div className="main-content-area">
@@ -98,7 +66,7 @@ class Thread extends Component {
           <p className="thread-comments-title">Comments</p>
           <div className="comment-body">
             {this.state.commentContent.comments.map((comment) => (
-              <Comment content={comment} />
+              <Comment content={comment} activeUser={this.props.activeUser} />
             ))}
           </div>
         </div>
