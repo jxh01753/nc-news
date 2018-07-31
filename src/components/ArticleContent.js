@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import VoteButton from './VoteButton';
 
 const ArticleContent = (props) => {
   return (
@@ -29,27 +30,17 @@ const ArticleContent = (props) => {
               Votes: {props.postContent.article.votes}
             </span>{' '}
             |{' '}
-            <span
-              className="thread-info-upvote"
-              onClick={() =>
-                this.handleVote('articles', props.postContent.article._id, 'up')
-              }
-            >
-              Upvote
-            </span>{' '}
-            /{' '}
-            <span
-              className="thread-info-downvote"
-              onClick={() =>
-                this.handleVote(
-                  'articles',
-                  props.postContent.article._id,
-                  'down'
-                )
-              }
-            >
-              Downvote
-            </span>
+            <VoteButton
+              voteType={'articles'}
+              elementID={props.postContent.article._id}
+              direction={'up'}
+            />
+            {' / '}
+            <VoteButton
+              voteType={'articles'}
+              elementID={props.postContent.article._id}
+              direction={'down'}
+            />
           </p>
         </div>
       </div>
