@@ -61,11 +61,11 @@ class Nav extends Component {
           </div>
           {/* Box 2 */}
           <nav className="nav-topic-link nav-flex">
-            {this.state.topics.map((topic) => {
-              {
-                <NavButton info={topic} />;
-              }
-            })}
+            <p className="nav-topic-headings">
+              {this.state.topics.map((topic) => {
+                return <NavButton info={topic} />;
+              })}
+            </p>
           </nav>
         </div>
       </div>

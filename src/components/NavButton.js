@@ -7,11 +7,9 @@ const NavButton = (props) => {
   const { _id, title } = props.info;
   return (
     <React.Fragment>
-      <p className="nav-topic-headings">
-        <Link className="topic-linker" to={`/topics/${_id}`}>
-          <span className="topic-heading">{title}</span>
-        </Link>
-      </p>
+      <Link className="topic-linker" to={`/topics/${_id}`}>
+        <span className="topic-heading">{title}</span>
+      </Link>
     </React.Fragment>
   );
 };
