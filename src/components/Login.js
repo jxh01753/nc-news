@@ -30,8 +30,6 @@ class Login extends Component {
     });
   };
 
-  displayContent = () => {};
-
   render() {
     return (
       <div className="main-content-area">
