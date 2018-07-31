@@ -4,6 +4,7 @@ import '../css/thread.css';
 import * as api from '../api';
 import moment from 'moment';
 import ArticleContent from './ArticleContent';
+import CommentBox from './CommentBox';
 import propTypes from 'prop-types';
 
 class Thread extends Component {
@@ -88,7 +89,7 @@ class Thread extends Component {
           postContent={this.state.postContent}
           commentContent={this.state.commentContent}
         />
-        <div className="comment-area">
+        {/* <div className="comment-area">
           <form className="comment-box">
             <textarea
               className="comment-input"
@@ -101,7 +102,8 @@ class Thread extends Component {
               Submit
             </button>
           </form>
-        </div>
+        </div> */}
+        <CommentBox articleid={this.props.match.params.article_id} />
         <div className="thread-comments">
           <p className="thread-comments-title">Comments</p>
           <div className="comment-body">
