@@ -55,6 +55,11 @@
   font-size: 0.938em;
 }
 
+.topic-linker,
+.topic-linker:active {
+  margin-left: 0.5em;
+}
+
 .topic-linker {
   text-decoration-line: none;
   color: #888;
