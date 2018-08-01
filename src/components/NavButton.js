@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const NavButton = (props) => {
-  console.log('Loading nav buttons');
-  console.log(props.info);
   const { _id, title } = props.info;
   return (
     <React.Fragment>

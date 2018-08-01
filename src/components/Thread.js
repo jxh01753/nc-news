@@ -47,8 +47,14 @@ class Thread extends Component {
     return api.changeVote(type, id, vote);
   };
 
-  handleDeleteComment = (comment_id) => {
-    return api.deleteComment(comment_id);
+  // Renders comment right after posting for UX.
+  quickCommentRender = (newComment) => {
+    let newData = [...this.state.commentContent.comments, newComment];
+    this.setState({
+      commentContent: {
+        comments: newData
+      }
+    });
   };
 
   displayContent = () => {
@@ -61,6 +67,7 @@ class Thread extends Component {
         <CommentBox
           articleid={this.props.match.params.article_id}
           activeUser={this.props.activeUser}
+          quickCommentRender={this.quickCommentRender}
         />
         <div className="thread-comments">
           <p className="thread-comments-title">Comments</p>

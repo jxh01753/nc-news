@@ -19,6 +19,7 @@ class CommentBox extends Component {
       body: this.state.commentText,
       created_by: this.props.activeUser._id
     };
+    this.props.quickCommentRender(data);
     this.setState({
       commentText: ''
     });
