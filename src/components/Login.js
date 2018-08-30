@@ -62,7 +62,7 @@ class Login extends Component {
           </form>
           <div className="login-info-text">
             <p className="login-text">
-              Not a registered user? We're opening registrations soon!
+              Login as user "jessjelly" with password "a" to demo the app.
             </p>
           </div>
         </div>
