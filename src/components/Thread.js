@@ -57,19 +57,6 @@ class Thread extends Component {
     });
   };
 
-  handleCommentVote = (commentID, num) => {
-    let comments = this.state.commentContent.comments.map((comment) => {
-      if (comment._id === commentID) {
-        return { ...comment, votes: comment.votes + num };
-      } else {
-        return comment;
-      }
-    });
-    this.setState({
-      commentContent: comments
-    });
-  };
-
   displayContent = () => {
     return (
       <div className="main-content-area">
@@ -86,11 +73,7 @@ class Thread extends Component {
           <p className="thread-comments-title">Comments</p>
           <div className="comment-body">
             {this.state.commentContent.comments.map((comment) => (
-              <Comment
-                content={comment}
-                handleCommentVote={this.handleCommentVote}
-                activeUser={this.props.activeUser}
-              />
+              <Comment content={comment} activeUser={this.props.activeUser} />
             ))}
           </div>
         </div>

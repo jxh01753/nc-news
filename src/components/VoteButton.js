@@ -11,12 +11,13 @@ const VoteButton = (props) => {
     <span
       className="vote-button"
       onClick={() => {
-        handleVote(props.voteType, props.elementID, props.direction);
-
-        if (props.direction === 'up') {
-          props.handleVoteChange(1);
-        } else if (props.direction === 'down') {
-          props.handleVoteChange(-1);
+        if (!props.voted) {
+          handleVote(props.voteType, props.elementID, props.direction);
+          if (props.direction === 'up') {
+            props.handleVoteChange(1);
+          } else if (props.direction === 'down') {
+            props.handleVoteChange(-1);
+          }
         }
       }}
     >

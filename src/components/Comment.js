@@ -16,6 +16,7 @@ class Comment extends Component {
     });
   };
 
+  // This needs abstracting to a helper function..
   handleVoteChange = (num) => {
     if (!this.state.voted) {
       let newCount = this.state.votes + num;
@@ -47,6 +48,7 @@ class Comment extends Component {
             elementID={this.props.content._id}
             direction={'up'}
             handleVoteChange={this.handleVoteChange}
+            voted={this.state.voted}
           />
           {' | '}
           <VoteButton
@@ -54,6 +56,7 @@ class Comment extends Component {
             elementID={this.props.content._id}
             direction={'down'}
             handleVoteChange={this.handleVoteChange}
+            voted={this.state.voted}
           />
           {this.props.content.created_by.username ===
           this.props.activeUser.username ? (
