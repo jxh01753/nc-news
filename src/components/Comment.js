@@ -5,7 +5,6 @@ import DeleteButton from './DeleteButton';
 import propTypes from 'prop-types';
 
 const Comment = (props) => {
-  // is this inefficient? we're declaring this everytime a comment is mapped?
   return (
     <React.Fragment>
       <p className="comment-text">{props.content.body}</p>

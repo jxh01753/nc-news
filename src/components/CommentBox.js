@@ -14,7 +14,6 @@ class CommentBox extends Component {
 
   handleSubmitComment = (event) => {
     event.preventDefault();
-    if (!this.props.activeUser) return '';
     let data = {
       body: this.state.commentText,
       created_by: this.props.activeUser._id
@@ -24,8 +23,6 @@ class CommentBox extends Component {
       commentText: ''
     });
     return api.submitComment(data, this.props.articleid);
-
-    // add in persistent comments here after completing the comments component?
   };
 
   render() {
@@ -35,7 +32,7 @@ class CommentBox extends Component {
           <textarea
             className="comment-input"
             placeholder={
-              this.state.activeUser
+              this.props.activeUser.username
                 ? 'Comment..'
                 : 'You need to log in to post a comment.'
             }
@@ -43,7 +40,11 @@ class CommentBox extends Component {
             value={this.props.activeUser ? this.state.commentText : ''}
           />
           <br />
-          <button type="submit" onClick={this.handleSubmitComment}>
+          <button
+            type="submit"
+            disabled={!this.props.activeUser.username}
+            onClick={this.handleSubmitComment}
+          >
             Submit
           </button>
         </form>
