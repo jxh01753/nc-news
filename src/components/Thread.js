@@ -49,11 +49,24 @@ class Thread extends Component {
 
   // Renders comment right after posting for UX.
   quickCommentRender = (newComment) => {
-    let newData = [...this.state.commentContent.comments, newComment];
+    let newData = [newComment, ...this.state.commentContent.comments];
     this.setState({
       commentContent: {
         comments: newData
       }
+    });
+  };
+
+  handleCommentVote = (commentID, num) => {
+    let comments = this.state.commentContent.comments.map((comment) => {
+      if (comment._id === commentID) {
+        return { ...comment, votes: comment.votes + num };
+      } else {
+        return comment;
+      }
+    });
+    this.setState({
+      commentContent: comments
     });
   };
 
@@ -73,7 +86,11 @@ class Thread extends Component {
           <p className="thread-comments-title">Comments</p>
           <div className="comment-body">
             {this.state.commentContent.comments.map((comment) => (
-              <Comment content={comment} activeUser={this.props.activeUser} />
+              <Comment
+                content={comment}
+                handleCommentVote={this.handleCommentVote}
+                activeUser={this.props.activeUser}
+              />
             ))}
           </div>
         </div>

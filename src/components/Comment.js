@@ -1,45 +1,71 @@
-import React from 'react';
+import React, { Component } from 'react';
 import moment from 'moment';
 import VoteButton from './VoteButton';
 import DeleteButton from './DeleteButton';
 import propTypes from 'prop-types';
 
-const Comment = (props) => {
-  return (
-    <React.Fragment>
-      <p className="comment-text">{props.content.body}</p>
-      <p className="comment-info">
-        <span className="comment-author">
-          {' '}
-          Comment by {props.content.created_by.username}
-        </span>{' '}
-        {' on '}
-        <span className="comment-date">
-          {moment(props.content.created_at).format('Do MMMM YYYY HH:mm')}
-        </span>
-        {' | '}
-        <span className="comment-votes">Votes: {props.content.votes}</span>
-        {' | '}
-        <VoteButton
-          voteType={'comments'}
-          elementID={props.content._id}
-          direction={'up'}
-        />
-        {' | '}
-        <VoteButton
-          voteType={'comments'}
-          elementID={props.content._id}
-          direction={'down'}
-        />
-        {props.content.created_by.username === props.activeUser.username ? (
-          <DeleteButton elementID={props.content._id} />
-        ) : (
-          <span className="blank" />
-        )}
-      </p>
-    </React.Fragment>
-  );
-};
+class Comment extends Component {
+  state = {
+    votes: 0,
+    voted: false
+  };
+
+  componentDidMount = () => {
+    this.setState({
+      votes: this.props.content.votes
+    });
+  };
+
+  handleVoteChange = (num) => {
+    if (!this.state.voted) {
+      let newCount = this.state.votes + num;
+      this.setState({
+        votes: newCount,
+        voted: true
+      });
+    }
+  };
+
+  render() {
+    return (
+      <React.Fragment>
+        <p className="comment-text">{this.props.content.body}</p>
+        <p className="comment-info">
+          <span className="comment-author">
+            {' '}
+            Comment by {this.props.content.created_by.username}
+          </span>{' '}
+          {' on '}
+          <span className="comment-date">
+            {moment(this.props.content.created_at).format('Do MMMM YYYY HH:mm')}
+          </span>
+          {' | '}
+          <span className="comment-votes">Votes: {this.state.votes}</span>
+          {' | '}
+          <VoteButton
+            voteType={'comments'}
+            elementID={this.props.content._id}
+            direction={'up'}
+            handleVoteChange={this.handleVoteChange}
+          />
+          {' | '}
+          <VoteButton
+            voteType={'comments'}
+            elementID={this.props.content._id}
+            direction={'down'}
+            handleVoteChange={this.handleVoteChange}
+          />
+          {this.props.content.created_by.username ===
+          this.props.activeUser.username ? (
+            <DeleteButton elementID={this.props.content._id} />
+          ) : (
+            <span className="blank" />
+          )}
+        </p>
+      </React.Fragment>
+    );
+  }
+}
 
 Comment.propTypes = {
   activeUser: propTypes.object,
