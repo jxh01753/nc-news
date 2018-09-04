@@ -1,6 +1,6 @@
 # Northcoders News Front-End
 
-This is the Northcoders News Front-End. It's a **minimalistic** Reddit/Hacker News/Lobste.rs-like news aggregate site built using `React`.
+This is the Northcoders News Front-End. It's a **minimalistic** Reddit/Hacker News/Lobste.rs-like news aggregate site built using `React`. A link to the back-end can be found [here](https://github.com/jxh01753/nc-news-be).
 
 ## Getting Started
 
@@ -28,7 +28,7 @@ nc-news has been built with -
 
 - `React`
 - `HTML5`; and,
-- `CSS3`
+- `CSS`
 
 ## Authors
 
