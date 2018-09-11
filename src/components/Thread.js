@@ -20,6 +20,7 @@ class Thread extends Component {
       let postContent = await this.getPostData();
       let commentContent = await this.getCommentData();
       this.props.fetchActiveArticleID(this.props.match.params.article_id);
+      // commentContent created_at needs to convert to unix timestamp for sorting by new. Implement here.
       this.setState({
         postContent,
         commentContent
